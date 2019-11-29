@@ -1,0 +1,54 @@
+{
+	"name": "v-tube-try",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@storybook/react": "^5.2.6",
+		"antd": "^3.24.2",
+		"classnames": "^2.2.6",
+		"dotenv": "^8.2.0",
+		"hls.js": "^0.8.8",
+		"moment": "^2.24.0",
+		"prop-types": "^15.7.2",
+		"react": "^16.10.2",
+		"react-dom": "^16.10.2",
+		"react-scripts": "3.2.0"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"storybook": "start-storybook"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Hitha-Rai/v-tube.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Hitha-Rai/v-tube/issues"
+	},
+	"homepage": "https://github.com/Hitha-Rai/v-tube#readme",
+	"devDependencies": {
+		"prettier": "1.18.2"
+	}
+}

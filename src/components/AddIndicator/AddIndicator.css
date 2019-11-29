@@ -1,0 +1,7 @@
+.add-indicator {
+	position: absolute;
+	width: 5px;
+	height: 6px;
+	border-radius: 20%;
+	background-color: yellow;
+}
