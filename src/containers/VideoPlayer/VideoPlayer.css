@@ -10,13 +10,12 @@
 	}
 }
 #playerContent {
-	background: black;
 	color: white;
 	width: 100%;
 	z-index: 2;
 	cursor: pointer;
 	box-sizing: border-box;
-	padding: 5px 0;
+	padding: 4px 0;
 }
 #timeDisplay {
 	position: absolute;
@@ -71,7 +70,7 @@ video::-webkit-media-controls {
 }
 
 .progress {
-	margin-top: -5px;
+	margin-top: -6px;
 	height: 6px;
 	position: relative;
 	top: 5px;
@@ -110,6 +109,10 @@ video::-webkit-media-controls {
 	transition: opacity 1.5s ease-in-out;
 	opacity: 0;
 }
+.inc-dec {
+	display: none;
+	pointer-events: none;
+}
 #onScreenIncDec {
 	position: absolute;
 	z-index: 2;
@@ -132,7 +135,7 @@ video::-webkit-media-controls {
 }
 .progress-amount-indicator {
 	position: absolute;
-	width: 3px;
+	width: 4px;
 	height: 3px;
 	border: 2px solid white;
 	border-radius: 90%;

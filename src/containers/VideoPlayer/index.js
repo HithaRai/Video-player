@@ -8,7 +8,6 @@ import moment from 'moment';
 import Overlay from 'components/OverLay';
 import cx from 'classnames';
 import Hls from 'hls.js';
-const HlsSupportCheck = window.Hls || Hls;
 
 class VideoPlayer extends Component {
 	state = {
@@ -35,7 +34,7 @@ class VideoPlayer extends Component {
 		isControls: PropTypes.bool,
 		className: PropTypes.string,
 		src: PropTypes.string,
-		addSrc: PropTypes.object,
+		adSrc: PropTypes.object,
 		description: PropTypes.string,
 		poster: PropTypes.string,
 		title: PropTypes.string,
@@ -110,7 +109,7 @@ class VideoPlayer extends Component {
 			this.ProgressBarInd.style.left = `${this.myVideo.currentTime / duration * 100}%`;
 		}
 		this.timeDisplayHandler();
-		this.onAdFetchHandler();
+		this.adFetchHandler();
 
 		if (this.myVideo.ended) {
 			this.fetchVideo(this.props.src);
@@ -118,8 +117,8 @@ class VideoPlayer extends Component {
 				this.props.configurations.seekBarColor
 					? (this.ProgressBar.style.backgroundColor = this.props.configurations.seekBarColor)
 					: (this.ProgressBar.style.backgroundColor = 'red');
-			if (this.props.addSrc && this.props.isControls) this.AdIndicator.style.display = 'block';
-			this.props.addSrc
+			if (this.props.adSrc && this.props.isControls) this.AdIndicator.style.display = 'block';
+			this.props.adSrc
 				? this.setState({
 						addPassed: true,
 						skippable: false,
@@ -146,7 +145,7 @@ class VideoPlayer extends Component {
 				totalTime: totalTime
 			},
 			() => {
-				return this.state.initialData ? '' : this.initialCalculations();
+				return !this.state.initialData ? this.initialCalculations() : '';
 			}
 		);
 	};
@@ -158,40 +157,18 @@ class VideoPlayer extends Component {
 	};
 
 	videoOnLoadHandler = () => {
-		this.initialCalculations();
 		this.timeDisplayHandler(this.myVideo.duration);
 	};
 
-	fetchAdVideo = (index) => {
-		this.fetchVideo(this.props.addSrc.url[index]);
-		if (this.props.addSrc && this.props.isControls) {
-			this.ProgressBar.style.backgroundColor = 'yellow';
-			this.AdIndicator.style.display = 'none';
-			this.player.style.pointerEvents = 'none';
-		}
-
-		this.setState(
-			{
-				isAddPlayed: false,
-				isPlayStatus: false,
-				isAdVideoFetched: true,
-				skipAdAfter: this.props.addSrc.showSkipAdEnable,
-				timeInsecs: 0
-			},
-			this.playPauseHandler
-		);
-	};
-
 	beforeAdFetch = () => {
-		debugger;
 		const { addPassed, isAddPlayed, isAdVideoFetched, timeInsecs, allOccurences } = this.state;
 		return addPassed && !isAddPlayed && !isAdVideoFetched && allOccurences.includes(timeInsecs);
 	};
 
-	onAdFetchHandler = () => {
+	adFetchHandler = () => {
 		if (this.beforeAdFetch()) {
 			let index = this.state.adIndex;
-			if (this.state.adIndex === this.props.addSrc.url.length - 1) {
+			if (this.state.adIndex === this.props.adSrc.url.length - 1) {
 				index = 0;
 			} else {
 				index = index + 1;
@@ -199,7 +176,7 @@ class VideoPlayer extends Component {
 			this.setState(
 				{
 					timeStop: this.myVideo.currentTime,
-					skippable: this.props.addSrc.skippable,
+					skippable: this.props.adSrc.skippable,
 					adIndex: index
 				},
 				this.fetchAdVideo(this.state.adIndex)
@@ -213,6 +190,26 @@ class VideoPlayer extends Component {
 			}
 		}
 	};
+
+	fetchAdVideo = (index) => {
+		this.fetchVideo(this.props.adSrc.url[index]);
+		if (this.props.adSrc && this.props.isControls) {
+			this.ProgressBar.style.backgroundColor = 'yellow';
+			this.AdIndicator.style.display = 'none';
+			this.player.style.pointerEvents = 'none';
+		}
+
+		this.setState(
+			{
+				isAddPlayed: false,
+				isPlayStatus: false,
+				isAdVideoFetched: true,
+				skipAdAfter: this.props.adSrc.showSkipAdAfter ? this.props.adSrc.showSkipAdAfter : 5,
+				timeInsecs: 0
+			},
+			this.playPauseHandler
+		);
+	};
 	onScreenIncDec_OverlayHandler = () => {
 		const { isControlsVisibility, isAdVideoFetched, isAddPlayed, isPlayStatus, timeInsecs } = this.state;
 		const styleIconOnScreen = {
@@ -224,11 +221,11 @@ class VideoPlayer extends Component {
 			<div />
 		) : (
 			<div
-				className={`animate  ${isControlsVisibility && !isAdVideoFetched ? 'visible' : 'hidden'}`}
+				className={`animate  ${isControlsVisibility && !isAdVideoFetched ? 'visible' : 'hidden inc-dec'} `}
 				id='onScreenIncDec'
 			>
 				<div className='child-inc-dec decrement'>
-					<Icon type='backward' onClick={this.timeIncrementHandler} style={styleIconOnScreen} />
+					<Icon type='backward' onClick={this.timeDecrementHandler} style={styleIconOnScreen} />
 				</div>
 				<div className='child-inc-dec increment'>
 					<Icon type='forward' onClick={this.timeIncrementHandler} style={styleIconOnScreen} />
@@ -270,15 +267,20 @@ class VideoPlayer extends Component {
 	};
 
 	renderAdIndicator = () => {
-		return this.props.addSrc ? (
+		return this.props.adSrc ? (
 			<div
 				ref={(AdIndicator) => {
 					this.AdIndicator = AdIndicator;
 				}}
 			>
-				{this.state.allOccurences.map((times) => {
-					return <AddIndicator key={Math.random()} left={`${(times + 1) / this.myVideo.duration * 100}%`} />;
-				})}
+				{this.state.allOccurences.map(
+					(time) =>
+						time !== undefined ? (
+							<AddIndicator key={Math.random()} left={`${(time + 1) / this.myVideo.duration * 100}%`} />
+						) : (
+							''
+						)
+				)}
 			</div>
 		) : (
 			<div />
@@ -423,10 +425,6 @@ class VideoPlayer extends Component {
 			this.myVideo.type = 'video/mp4';
 		}
 
-		if (autoPlayStatus) {
-			this.playPauseHandler();
-		}
-
 		if (this.state.addPassed && this.state.isAdVideoFetched) {
 			this.myVideo.currentTime = this.state.timeStop + 1;
 
@@ -449,15 +447,24 @@ class VideoPlayer extends Component {
 				this.playPauseHandler
 			);
 		}
+		if (this.state.isAdVideoFetched) {
+			if (this.myVideo.duration > 40) console.warn('ad is too long');
+		}
+		if (autoPlayStatus) {
+			this.playPauseHandler();
+		}
 	};
 
 	initialCalculations = () => {
 		const noOfAdVideoes = Math.round(this.myVideo.duration / 300),
-			occurenceTime = this.myVideo.duration / (noOfAdVideoes + 1),
-			allOccurences = [];
-		for (let i = 0; i < noOfAdVideoes; i++) {
+			occurenceTime = this.myVideo.duration / (noOfAdVideoes + 1);
+		let allOccurences = [];
+		if (this.state.addPassed) allOccurences.push(this.props.adSrc.firstAdOccurence);
+
+		for (let i = 1; i < (allOccurences[0] === undefined ? noOfAdVideoes + 1 : noOfAdVideoes); i++) {
 			allOccurences.push(Math.round(occurenceTime * i));
 		}
+
 		this.setState({
 			initialData: true,
 			noOfAdVideoes,
@@ -466,6 +473,7 @@ class VideoPlayer extends Component {
 		});
 		console.log(noOfAdVideoes, occurenceTime, allOccurences);
 	};
+
 	loadedData = () => {
 		console.log('hi');
 		if (this.myVideo.buffered.length === 0) {
@@ -480,7 +488,7 @@ class VideoPlayer extends Component {
 				this.fetchVideo(this.props.src);
 			}
 		}
-		if (this.props.addSrc) {
+		if (this.props.adSrc) {
 			this.setState({
 				addPassed: true
 			});
@@ -514,7 +522,7 @@ class VideoPlayer extends Component {
 					}}
 					className={this.renderClassName()}
 					onLoadedData={this.loadedData}
-					autoPlay={this.props.isAutoPlay}
+					autoPlay={!this.props.isAutoPlay}
 					onProgress={this.bufferBarHandler}
 					onTimeUpdate={this.progressBarHandler}
 					onCanPlayThrough={this.videoOnLoadHandler}
@@ -524,7 +532,7 @@ class VideoPlayer extends Component {
 					onPlay={this.props.onPlay}
 					onPause={this.props.onPause}
 					onDoubleClickCapture={this.props.onDoubleClickCapture}
-					style={this.props.addSrc ? { minHeight: minHeight, maxHeight } : { minHeight: minHeight }}
+					style={this.props.adSrc ? { minHeight: minHeight, maxHeight } : { minHeight: minHeight }}
 				/>
 
 				{this.handleAdSkipButton()}
