@@ -20,7 +20,7 @@ class VideoPlayer extends Component {
 		addPassed: false,
 		isAdVideoFetched: false,
 		timeStop: '',
-		skipAdAfter: 10,
+		skipAdAfter: 5,
 		isSkipAdd: false,
 		skippable: false,
 		timeOfOccurence: '',
@@ -157,6 +157,9 @@ class VideoPlayer extends Component {
 	};
 
 	videoOnLoadHandler = () => {
+		if (this.state.isAdVideoFetched) {
+			if (this.myVideo.duration > 61) console.warn('ad is too long');
+		}
 		this.timeDisplayHandler(this.myVideo.duration);
 	};
 
@@ -447,9 +450,7 @@ class VideoPlayer extends Component {
 				this.playPauseHandler
 			);
 		}
-		if (this.state.isAdVideoFetched) {
-			if (this.myVideo.duration > 40) console.warn('ad is too long');
-		}
+
 		if (autoPlayStatus) {
 			this.playPauseHandler();
 		}
@@ -526,7 +527,6 @@ class VideoPlayer extends Component {
 					onProgress={this.bufferBarHandler}
 					onTimeUpdate={this.progressBarHandler}
 					onCanPlayThrough={this.videoOnLoadHandler}
-					onSeeking={this.onSeeking}
 					onClick={this.playPauseHandler}
 					onEnded={this.props.onEnded}
 					onPlay={this.props.onPlay}

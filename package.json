@@ -1,5 +1,5 @@
 {
-	"name": "v-tube-try",
+	"name": "react-video-player",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -25,16 +25,8 @@
 		"extends": "react-app"
 	},
 	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
+		"production": [ ">0.2%", "not dead", "not op_mini all" ],
+		"development": [ "last 1 chrome version", "last 1 firefox version", "last 1 safari version" ]
 	},
 	"description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
 	"main": "index.js",

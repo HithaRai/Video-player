@@ -66,34 +66,79 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
 ### Usage
+The most basic react-video-player can be described with:
+```js
+import React, { Component } from 'react';
+import VideoPlayer from 'containers/VideoPlayer';
+
+class VideoContainer extends Component {
+	render() {
+		return (
+			<div>
+				<VideoPlayer src='https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8' />
+			</div>
+		);
+	}
+}
+
+export default VideoContainer;
+```
+The basic react-video-player with advertisement can be implemented with :
+```js
+import React, { Component } from 'react';
+import VideoPlayer from 'containers/VideoPlayer';
+
+class VideoContainer extends Component {
+	render() {
+		return (
+			<div>
+				<VideoPlayer
+					src='https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8'
+					adSrc={{
+						url: [ 'http://clips.vorwaerts-gmbh.de/VfE_html5.mp4' ]
+					}}
+				/>
+			</div>
+		);
+	}
+}
+
+export default VideoContainer;
+
+```
+
+### Properties 
 
 | Props            |Type     | Default Value | Description |
 | :--------------- |:-----   | :-------------| :----------|
-| src              |Url     |''             ||
-| adSrc            |Object  | -             ||
-|->(key) skippable        |Boolean |true           ||
-|->(key)showSkipAdAfter  |Number   |5              ||
-|->(key)firstAdOccurence |Number   |0              ||
-| title            |String   |''             ||
-| description      |String   |''             ||
-| poster           |Url      |''             ||
-| isAutoPlay            |Boolean   |false           ||
-| isControls          |Boolean   |true           ||
-| onEnded            |Function   |console.log('Video ended')           ||
-| onPlay            |Function   |console.log('Video is playing')           ||
-| onPause            |Function   |console.log('Video paused')           ||
-| onDoubleClickCapture            |Function   |console.log('Double click captured')           ||
-| configurations            |Object   |  {width: '600px',left: '0px',right: '0px',top: '0px',bottom: '0px',iconColor: 'white',controlBarBgColor: 'black',seekBarColor: 'red',fontSize: '20px',minHeight: '100px',maxHeight: '600px'}         ||
-|->(key) width        |Number(px)/String(px,%) |  600         ||
+| src              |Url     |''             |Url of the video to be played of mp4 or m3u8 format only|
+| adSrc            |Object  | -             |Object containing advertisement details-with url(mandatory),skippable,showSkipAdAfter,firstAdOccurence as keys|
+|->(key) url          |Array     |''             |Array of URLs of the Advertisement videoes to be played of mp4 or m3u8 format only(preferably duration less than 1 minute)|
+|->(key) skippable        |Boolean |true           |Whether the Ad can be skippede or not|
+|->(key)showSkipAdAfter  |Number   |5              |If it is a skippable Ad,then the skip can be enabled after this time|
+|->(key)firstAdOccurence |Number   |0              |First Ad can be played at this instance of time of the main video|
+| title            |String   |''             |Title of the video to be displayed in pause state|
+| description      |String   |''             |description of the video to be displayed in pause state|
+| poster           |Url      |''             |poster of the video to be displayed in pause state|
+| isAutoPlay            |Boolean   |false           |Whether autoplay should be enabled or not|
+| isControls          |Boolean   |true           |Wheter the control panel should be visible or not|
+| onPlay            |Function   |function=()=>{console.log('Video is playing')}           |Callback funtion at the start of the video after pause|
+| onEnded            |Function   |function=()=>{console.log('Video ended')}            |Callback funtion at the end of the video|
+| onPause            |Function   |function=()=>{console.log('Video paused')}           |Callback funtion while the video is paused|
+| onDoubleClickCapture            |Function   |function=()=>{console.log('Double click captured')}            |Callback funtion on double click capture|
+| configurations            |Object   |  {width: '600px',left: '0px',right: '0px',top: '0px',bottom: '0px',iconColor: 'white',controlBarBgColor: 'black',seekBarColor: 'red',fontSize: '20px',minHeight: '100px',maxHeight: '600px'}         |Configurations to change the width and positioning of the video player and to change the colour of the seek bar, control panel and the icons|
+|->(key) width        |Number(px)/String(px,%) |  600         |changes the width of the video player|
 |->(key) left        |Number(px)/String(px,%) |0           ||
 |->(key) right        |Number(px)/String(px,%) |0           ||
 |->(key) top        |Number(px)/String(px,%) |0           ||
 |->(key) bottom        |Number(px)/String(px,%) |0           ||
-|->(key) iconColor        |String |'white'           ||
-|->(key) controlBarBgColor        |String |'black'           ||
-|->(key) seekBarColor        |String |'red'           ||
-|->(key) fontSize        |Number(px)/String(px,%) |20           ||
-|->(key) minHeight        |Number(px)/String(px,%) |100           ||
-|->(key) maxHeight        |BoNumber(px)/String(px,%) |600           ||
+|->(key) iconColor        |String |'white'           |changes the icon colour of the control panel|
+|->(key) controlBarBgColor        |String |'black'           |changes the control bar colour of the control panel|
+|->(key) seekBarColor        |String |'red'           |changes the seek bar colour|
+|->(key) fontSize        |Number(px)/String(px,%) |20           |changes the font of the icon|
+|->(key) minHeight        |Number(px)/String(px,%) |100           |sets the minimum height to the video player|
+|->(key) maxHeight        |Number(px)/String(px,%) |600           |sets the maximum height to the video player|
+
+
+
