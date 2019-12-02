@@ -570,28 +570,28 @@ VideoPlayer.defaultProps = {
 	isControls: true,
 
 	onEnded: () => {
-		console.log('hello in player - ended');
+		console.log('Video ended');
 	},
 	onPlay: () => {
-		console.log('hey in player - play');
+		console.log('Video is playing');
 	},
 	onPause: () => {
-		console.log('hey in player - pause');
+		console.log('Video paused');
 	},
 	onDoubleClickCapture: () => {
-		console.log('hey in player - double click');
+		console.log('Double click captured');
 	},
 	configurations: {
-		width: '600px',
-		left: '0px',
-		right: '0px',
-		top: '0px',
-		bottom: '0px',
+		width: 600,
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0,
 		iconColor: 'white',
 		controlBarBgColor: 'black',
-		fontSize: '20px',
-		minHeight: '100px',
-		maxHeight: '600px'
+		fontSize: 20,
+		minHeight: 100,
+		maxHeight: 600
 	}
 };
 export default VideoPlayer;

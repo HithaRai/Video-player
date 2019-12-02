@@ -66,3 +66,34 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### Usage
+
+| Props            |Type     | Default Value | Description |
+| :--------------- |:-----   | :-------------| :----------|
+| src              |Url     |''             ||
+| adSrc            |Object  | -             ||
+|->(key) skippable        |Boolean |true           ||
+|->(key)showSkipAdAfter  |Number   |5              ||
+|->(key)firstAdOccurence |Number   |0              ||
+| title            |String   |''             ||
+| description      |String   |''             ||
+| poster           |Url      |''             ||
+| isAutoPlay            |Boolean   |false           ||
+| isControls          |Boolean   |true           ||
+| onEnded            |Function   |console.log('Video ended')           ||
+| onPlay            |Function   |console.log('Video is playing')           ||
+| onPause            |Function   |console.log('Video paused')           ||
+| onDoubleClickCapture            |Function   |console.log('Double click captured')           ||
+| configurations            |Object   |  {width: '600px',left: '0px',right: '0px',top: '0px',bottom: '0px',iconColor: 'white',controlBarBgColor: 'black',seekBarColor: 'red',fontSize: '20px',minHeight: '100px',maxHeight: '600px'}         ||
+|->(key) width        |Number(px)/String(px,%) |  600         ||
+|->(key) left        |Number(px)/String(px,%) |0           ||
+|->(key) right        |Number(px)/String(px,%) |0           ||
+|->(key) top        |Number(px)/String(px,%) |0           ||
+|->(key) bottom        |Number(px)/String(px,%) |0           ||
+|->(key) iconColor        |String |'white'           ||
+|->(key) controlBarBgColor        |String |'black'           ||
+|->(key) seekBarColor        |String |'red'           ||
+|->(key) fontSize        |Number(px)/String(px,%) |20           ||
+|->(key) minHeight        |Number(px)/String(px,%) |100           ||
+|->(key) maxHeight        |BoNumber(px)/String(px,%) |600           ||

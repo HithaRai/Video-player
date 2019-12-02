@@ -28,12 +28,12 @@ class VideoContainer extends Component {
 					isAutoPlay={true}
 					isControls={true}
 					configurations={{
-						width: '700px',
+						width: '900px',
 						left: '100px',
 						top: '100px',
 						iconColor: 'white',
 						controlBarBgColor: 'black',
-						fontSize: '25px',
+						fontSize: '20px',
 						seekBarColor: 'red',
 						minHeight: '300px',
 						maxHeight: '600px'
