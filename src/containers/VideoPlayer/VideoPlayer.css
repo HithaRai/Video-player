@@ -1,0 +1,171 @@
+#player {
+	position: relative;
+	min-width: 400px;
+	width: 600px;
+	overflow: hidden;
+}
+@supports (-ms-ime-align: auto) {
+	#player {
+		position: relative;
+	}
+}
+#playerContent {
+	color: white;
+	width: 100%;
+	z-index: 2;
+	cursor: pointer;
+	box-sizing: border-box;
+	padding: 4px 0;
+}
+#timeDisplay {
+	position: absolute;
+	top: 45%;
+	display: inline-block;
+	box-sizing: border-box;
+	margin-bottom: 6px;
+	padding: 0 10px;
+	color: white;
+}
+.common-video {
+	position: relative;
+	width: 100%;
+	cursor: pointer;
+	min-width: 100px;
+	overflow: hidden;
+}
+@supports (-ms-ime-align: auto) {
+	.common-video {
+		min-height: 10px;
+	}
+}
+#customControls {
+	background: black;
+	width: 100%;
+	z-index: 2;
+	cursor: pointer;
+}
+video::-webkit-media-controls {
+	display: none;
+}
+.buffered {
+	height: 5px;
+	position: relative;
+	top: 5px;
+	background: #555;
+	width: 100%;
+}
+/* .buffered {
+	height: 2%;
+	position: relative;
+	top: 5px;
+	background: #555;
+	width: 100%;
+} */
+
+#buffered-amount {
+	display: block;
+	height: 100%;
+	background-color: #777;
+	width: 0;
+}
+
+.progress {
+	margin-top: -6px;
+	height: 6px;
+	position: relative;
+	top: 5px;
+	width: 100%;
+}
+
+/* .progress {
+	margin-top: -5px;
+	height: 6px;
+	position: relative;
+	top: 5px;
+	width: 100%;
+} */
+
+#progress-amount {
+	display: block;
+	background-color: rgb(230, 33, 23);
+	width: 0;
+	height: 100%;
+}
+.animate {
+	transition: opacity 0.5s ease-in-out;
+	position: absolute;
+	bottom: 0;
+	opacity: 1;
+	width: 100%;
+	z-index: 2;
+	cursor: pointer;
+}
+
+.visible {
+	opacity: 1;
+}
+
+.hidden {
+	transition: opacity 1.5s ease-in-out;
+	opacity: 0;
+}
+.inc-dec {
+	display: none;
+	pointer-events: none;
+}
+#onScreenIncDec {
+	position: absolute;
+	z-index: 2;
+	display: flex;
+	width: 100%;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -40%);
+	text-align: center;
+	height: 10px;
+	outline: none;
+	cursor: pointer;
+}
+.child-inc-dec {
+	width: 50%;
+	height: 10px;
+	text-align: center;
+	border: none;
+	outline: none;
+}
+.progress-amount-indicator {
+	position: absolute;
+	width: 4px;
+	height: 3px;
+	border: 2px solid white;
+	border-radius: 90%;
+	background-color: white;
+}
+
+.right-controls {
+	position: absolute;
+	right: 5px;
+}
+.skip {
+	position: absolute;
+	bottom: 20%;
+	right: 0;
+	background-color: black;
+	opacity: 0.7;
+	color: white;
+	box-sizing: border-box;
+	text-align: center;
+	padding: 15px;
+	cursor: pointer;
+}
+/* @supports (-ms-ime-align: auto) {
+	.skip {
+		bottom: 20%;
+	}
+} */
+
+.skip-forward {
+	display: inline-block;
+	position: relative;
+	top: 5px;
+}
