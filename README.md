@@ -92,8 +92,17 @@ export default VideoContainer;
 
 | Key            |Options | 
 | :--------------|:-------|
-|`adSrc`|`url`:Array of URLs of the Advertisement videoes to be played of mp4 or m3u8 format only(preferably duration less than 1 minute)
-`skippable`:Whether the Ad can be skippede or not
-`showSkipAdAfter`:If it is a skippable Ad,then the skip can be enabled after this time
-`firstAdOccurence`:First Ad can be played at this instance of time of the main video
-|`configurations`|`width`:changes the width of the video player`left`:overrides default player left positioning`right`:overrides default player right positioning`top`:overrides default player top positioning`bottom`:overrides default player bottom positioning`iconColor`:overrides default player iconColor positioning`controlBarBgColor`:overrides default player controlBarBgColor positioning`seekBarColor`:overrides default player seekBarColor positioning`fontSize`:overrides default player fontSize positioning`minHeight`:overrides default player minHeight positioning`maxHeight`:overrides default player maxHeight positioning|
+|`adSrc`|`url`:Array of URLs of the Advertisement videoes to be played of mp4 or m3u8 format only(preferably duration less than 1 minute)|
+||`skippable`:Whether the Ad can be skippede or not|
+||`showSkipAdAfter`:If it is a skippable Ad,then the skip can be enabled after this time`firstAdOccurence`:First Ad can be played at this instance of time of the main video|
+|`configurations`|`width`:changes the width of the video player|
+||`left`:overrides default player left positioning|
+||`right`:overrides default player right positioning|
+||`top`:overrides default player top positioning|
+||`bottom`:overrides default player bottom positioning|
+||`iconColor`:overrides default player iconColor positioning|
+||`controlBarBgColor`:overrides default player controlBarBgColor positioning|
+||`seekBarColor`:overrides default player seekBarColor positioning|
+||`fontSize`:overrides default player fontSize positioning|
+||`minHeight`:overrides default player minHeight positioning|
+||`maxHeight`:overrides default player maxHeight positioning|
