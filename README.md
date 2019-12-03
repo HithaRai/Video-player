@@ -15,7 +15,12 @@ npm install react-video-player --save
 # or
 yarn add react-video-player
 ```
+### Demo
+
+For demo : https://react-custom-video-player.netlify.com/
+
 The most basic react-video-player can be described with:
+
 ```js
 import React, { Component } from 'react';
 import VideoPlayer from 'containers/VideoPlayer';
@@ -33,6 +38,7 @@ class VideoContainer extends Component {
 export default VideoContainer;
 ```
 The basic react-video-player with advertisement can be implemented with :
+
 ```js
 import React, { Component } from 'react';
 import VideoPlayer from 'containers/VideoPlayer';
