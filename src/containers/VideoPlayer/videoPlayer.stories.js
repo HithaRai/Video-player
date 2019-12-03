@@ -41,7 +41,17 @@ export const Video_without_autoplay_without_ControlBar = () => (
 		isControls={false}
 	/>
 );
-
+export const Video_with_changed_forward_rewind_timing = () => (
+	<VideoPlayer
+		src='https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8'
+		title='Playing First Video'
+		description='This is a demo video of m3u8 format '
+		poster='https://www.themarysue.com/wp-content/uploads/2016/02/sale_3342_special_banner_background.jpg'
+		isAutoPlay={false}
+		isControls={true}
+		forward_rewind_time={5}
+	/>
+);
 export const Video_without_autoplay_with_ControlBar_and_Configurations_defaults = () => (
 	<VideoPlayer
 		src='https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8'

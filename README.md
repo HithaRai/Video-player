@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 <h1 align='center'>
-  react-video-player
+  React-video-player
 </h1>
 
 <p align='center'>
@@ -70,7 +70,8 @@ export default VideoContainer;
 | `description`      |String   |''             |description of the video to be displayed in pause state|
 | `poster`           |Url      |''             |poster of the video to be displayed in pause state|
 |`isAutoPlay`            |Boolean   |false           |Whether autoplay should be enabled or not|
-| `isControls`          |Boolean   |true           |Wheter the control panel should be visible or not|
+| `isControls`          |Boolean   |true           |Whether the control panel should be visible or not|
+| `forward_rewind_time`          |Number   |10           |changes the forward and rewing time interval of the player|
 | `onPlay`            |Function   |function=()=>{console.log('Video is playing')}           |Called when media starts or resumes playing after pausing or buffering|
 | `onEnded`            |Function   |function=()=>{console.log('Video ended')}            |Callback funtion at the end of the video|
 | `onPause`            |Function   |function=()=>{console.log('Video paused')}           |Callback funtion while the video is paused|

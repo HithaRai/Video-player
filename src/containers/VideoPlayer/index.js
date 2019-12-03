@@ -29,7 +29,7 @@ class VideoPlayer extends Component {
 		adIndex: 0
 	};
 	static propTypes = {
-		FWD_REV_TIME: PropTypes.number,
+		forward_rewind_time: PropTypes.number,
 		isAutoPlay: PropTypes.bool,
 		isControls: PropTypes.bool,
 		className: PropTypes.string,
@@ -50,11 +50,11 @@ class VideoPlayer extends Component {
 		this.setState((prevState) => ({ isPlayStatus: !prevState.isPlayStatus }));
 	};
 	timeIncrementHandler = () => {
-		this.myVideo.currentTime += this.props.FWD_REV_TIME;
+		this.myVideo.currentTime += this.props.forward_rewind_time;
 	};
 
 	timeDecrementHandler = () => {
-		this.myVideo.currentTime -= this.props.FWD_REV_TIME;
+		this.myVideo.currentTime -= this.props.forward_rewind_time;
 	};
 
 	audioHandler = () => {
@@ -102,15 +102,7 @@ class VideoPlayer extends Component {
 			}
 		}
 	};
-	progressBarHandler = () => {
-		let duration = this.myVideo.duration;
-		if (duration > 0 && this.props.isControls && !this.state.isAddPlayed) {
-			this.ProgressBar.style.width = `${this.myVideo.currentTime / duration * 100}%`;
-			this.ProgressBarInd.style.left = `${this.myVideo.currentTime / duration * 100}%`;
-		}
-		this.timeDisplayHandler();
-		this.adFetchHandler();
-
+	checkVideoEnded = () => {
 		if (this.myVideo.ended) {
 			this.fetchVideo(this.props.src);
 			if (this.props.isControls)
@@ -130,6 +122,16 @@ class VideoPlayer extends Component {
 						isSkipAdd: false
 					});
 		}
+	};
+	progressBarHandler = () => {
+		let duration = this.myVideo.duration;
+		if (duration > 0 && this.props.isControls && !this.state.isAddPlayed) {
+			this.ProgressBar.style.width = `${this.myVideo.currentTime / duration * 100}%`;
+			this.ProgressBarInd.style.left = `${this.myVideo.currentTime / duration * 100}%`;
+		}
+		this.timeDisplayHandler();
+		this.adFetchHandler();
+		this.checkVideoEnded();
 	};
 
 	timeDisplayHandler = () => {
@@ -401,33 +403,7 @@ class VideoPlayer extends Component {
 			</div>
 		);
 	};
-	fetchVideo = (source, autoPlayStatus = false) => {
-		let hls = '';
-		if (Hls.isSupported() && !source.includes('.mp4')) {
-			try {
-				if (hls !== '') {
-					hls.destroy();
-				}
-				hls = new Hls();
-				hls.loadSource(source);
-				hls.attachMedia(this.myVideo);
-				hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {});
-				hls.on(Hls.Events.ERROR, function(event, data) {
-					if (data.details === 'bufferAppendError') {
-						hls.destroy();
-					}
-				});
-			} catch (e) {
-				console.log(e);
-			}
-		} else {
-			if (hls !== '') {
-				hls.destroy();
-			}
-			this.myVideo.src = source;
-			this.myVideo.type = 'video/mp4';
-		}
-
+	setTime = (autoPlayStatus) => {
 		if (this.state.addPassed && this.state.isAdVideoFetched) {
 			this.myVideo.currentTime = this.state.timeStop + 1;
 
@@ -456,6 +432,36 @@ class VideoPlayer extends Component {
 		}
 	};
 
+	fetchVideo = (source, autoPlayStatus = false) => {
+		let hls = '';
+		if (Hls.isSupported() && !source.includes('.mp4')) {
+			try {
+				if (hls !== '') {
+					hls.destroy();
+				}
+				hls = new Hls();
+				hls.loadSource(source);
+				hls.attachMedia(this.myVideo);
+				hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {});
+				hls.on(Hls.Events.ERROR, function(event, data) {
+					if (data.details === 'bufferAppendError') {
+						hls.destroy();
+					}
+				});
+			} catch (e) {
+				console.log(e);
+			}
+		} else {
+			if (hls !== '') {
+				hls.destroy();
+			}
+			this.myVideo.src = source;
+			this.myVideo.type = 'video/mp4';
+		}
+
+		this.setTime(autoPlayStatus);
+	};
+
 	initialCalculations = () => {
 		const noOfAdVideoes = Math.round(this.myVideo.duration / 300),
 			occurenceTime = this.myVideo.duration / (noOfAdVideoes + 1);
@@ -473,13 +479,6 @@ class VideoPlayer extends Component {
 			allOccurences
 		});
 		console.log(noOfAdVideoes, occurenceTime, allOccurences);
-	};
-
-	loadedData = () => {
-		console.log('hi');
-		if (this.myVideo.buffered.length === 0) {
-			console.log('hi');
-		}
 	};
 	componentDidMount() {
 		if (this.props.src) {
@@ -560,7 +559,7 @@ class VideoPlayer extends Component {
 }
 
 VideoPlayer.defaultProps = {
-	FWD_REV_TIME: 10,
+	forward_rewind_time: 10,
 	isAutoPlay: false,
 	controls: true,
 	src: '',
