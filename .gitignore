@@ -5,7 +5,6 @@
 /.pnp
 .pnp.js
 /storybook-static
-/src/containers/VideoContainer
 
 # testing
 /coverage
