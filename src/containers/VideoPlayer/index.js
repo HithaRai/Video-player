@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ControlButton from 'components/ControlButton';
-import AddIndicator from 'components/AddIndicator';
+import ControlButton from '../../components/ControlButton';
+import AddIndicator from '../../components/AddIndicator';
 import './VideoPlayer.css';
 import { Icon } from 'antd';
 import moment from 'moment';
-import Overlay from 'components/OverLay';
+import Overlay from '../../components/OverLay';
 import cx from 'classnames';
 import Hls from 'hls.js';
 

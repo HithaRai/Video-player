@@ -5,15 +5,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 </h1>
 
 <p align='center'>
-  A React component for playing  mp4 and m3U8 format videoes using Hls.js , with advertisements at diffrent intervals of time. This component is  customisable per user requirements.
+  A React component for playing  mp4 and m3U8 format videos using hls.js , with advertisements at diffrent intervals of time. This component is customisable per user requirements.
 </p>
 
 ### Usage
 
 ```bash
-npm install react-video-player --save
+npm install simple-react-video-player --save
 # or
-yarn add react-video-player
+yarn add simple-react-video-player
 ```
 ### Demo
 

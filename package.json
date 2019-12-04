@@ -1,7 +1,7 @@
 {
-	"name": "react-video-player",
-	"version": "0.1.0",
-	"private": true,
+	"name": "simple-react-video-player",
+	"version": "1.0.3",
+	"private": false,
 	"dependencies": {
 		"@storybook/react": "^5.2.6",
 		"antd": "^3.24.2",
@@ -14,13 +14,15 @@
 		"react-dom": "^16.10.2",
 		"react-scripts": "3.2.0"
 	},
+	"keywords": [ "react", "video-player", "hls", "hls.js" ],
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"storybook": "start-storybook",
-		"build-storybook": "build-storybook -c .storybook"
+		"build-storybook": "build-storybook -c .storybook",
+		"build-component": "webpack --mode production"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -33,15 +35,38 @@
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Hitha-Rai/v-tube.git"
+		"url": "git+https://github.com/HithaRai/Video-player"
 	},
-	"author": "",
+	"author": "Hitha Rai",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/Hitha-Rai/v-tube/issues"
+		"url": "https://github.com/HithaRai/Video-player/issues"
 	},
-	"homepage": "https://github.com/Hitha-Rai/v-tube#readme",
+	"homepage": "https://github.com/HithaRai/Video-player#readme",
 	"devDependencies": {
-		"prettier": "1.18.2"
+		"babel-cli": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-stage-2": "^6.24.1",
+		"prettier": "1.18.2",
+		"@babel/core": "^7.4.3",
+		"@babel/plugin-proposal-class-properties": "^7.4.0",
+		"@storybook/addon-actions": "^5.0.6",
+		"@storybook/addon-links": "^5.0.6",
+		"@storybook/addons": "^5.0.6",
+		"@storybook/react": "^5.0.6",
+		"@storybook/storybook-deployer": "^2.8.1",
+		"babel-core": "^6.26.3",
+		"babel-loader": "^8.0.5",
+		"babel-plugin-transform-class-properties": "^6.24.1",
+		"babel-preset-es2015": "^6.24.1",
+		"babel-preset-react": "^6.24.1",
+		"css-loader": "^2.1.1",
+		"uglifyjs-webpack-plugin": "^2.1.2",
+		"webpack": "^4.30.0",
+		"webpack-cli": "^3.3.0"
+	},
+	"babel": {
+		"presets": [ "@babel/preset-env", "@babel/preset-react" ],
+		"plugins": [ "@babel/plugin-transform-runtime", "@babel/plugin-proposal-class-properties" ]
 	}
 }
