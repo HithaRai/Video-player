@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import VideoPlayer from 'containers/VideoPlayer';
+import VideoPlayer from '../../containers/VideoPlayer';
 import './VideoContainer.css';
 
 class VideoContainer extends Component {
