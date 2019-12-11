@@ -18,7 +18,7 @@
 		opacity: 1;
 	}
 }
-.text-content {
+.overlay_text_content {
 	position: absolute;
 	width: 100%;
 	color: white;

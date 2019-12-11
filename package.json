@@ -1,6 +1,6 @@
 {
 	"name": "simple-react-video-player",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"private": false,
 	"dependencies": {
 		"@storybook/react": "^5.2.6",
@@ -31,7 +31,7 @@
 		"production": [ ">0.2%", "not dead", "not op_mini all" ],
 		"development": [ "last 1 chrome version", "last 1 firefox version", "last 1 safari version" ]
 	},
-	"description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+	"description": "A React component for playing  mp4 and m3U8 format videos using hls.js , with advertisements at diffrent intervals of time. This component is customisable per user requirements.",
 	"main": "index.js",
 	"repository": {
 		"type": "git",

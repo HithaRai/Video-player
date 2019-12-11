@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ControlButton from '../../components/ControlButton';
-import AddIndicator from '../../components/AddIndicator';
+import ControlButton from 'components/ControlButton';
+import AddIndicator from 'components/AddIndicator';
 import './VideoPlayer.css';
 import { Icon } from 'antd';
 import moment from 'moment';
-import Overlay from '../../components/OverLay';
+import Overlay from 'components/OverLay';
 import cx from 'classnames';
 import Hls from 'hls.js';
 
@@ -70,9 +70,8 @@ class VideoPlayer extends Component {
 			this.myVideo.mozRequestFullScreen();
 		} else if (this.myVideo.webkitRequestFullscreen) {
 			this.myVideo.webkitRequestFullscreen();
-		} else if (this.myVideo.msRequestFullscreen) {
-			this.myVideo.msRequestFullscreen();
-		}
+		} else this.myVideo.msRequestFullscreen();
+
 		this.myVideo.controls = false;
 	};
 
@@ -173,11 +172,7 @@ class VideoPlayer extends Component {
 	adFetchHandler = () => {
 		if (this.beforeAdFetch()) {
 			let index = this.state.adIndex;
-			if (this.state.adIndex === this.props.adSrc.url.length - 1) {
-				index = 0;
-			} else {
-				index = index + 1;
-			}
+			this.state.adIndex === this.props.adSrc.url.length - 1 ? (index = 0) : (index = index + 1);
 			this.setState(
 				{
 					timeStop: this.myVideo.currentTime,
@@ -209,7 +204,7 @@ class VideoPlayer extends Component {
 				isAddPlayed: false,
 				isPlayStatus: false,
 				isAdVideoFetched: true,
-				skipAdAfter: this.props.adSrc.showSkipAdAfter ? this.props.adSrc.showSkipAdAfter : 5,
+				skipAdAfter: this.props.adSrc.showSkipAdEnable ? this.props.adSrc.showSkipAdEnable : 5,
 				timeInsecs: 0
 			},
 			this.playPauseHandler
@@ -226,13 +221,15 @@ class VideoPlayer extends Component {
 			<div />
 		) : (
 			<div
-				className={`animate  ${isControlsVisibility && !isAdVideoFetched ? 'visible' : 'hidden inc-dec'} `}
-				id='onScreenIncDec'
+				className={`videoPlayer_animate  ${isControlsVisibility && !isAdVideoFetched
+					? 'visible'
+					: 'hidden videoPlayer_inc_dec'} `}
+				id='videoPlayer-on-screen-inc-dec'
 			>
-				<div className='child-inc-dec decrement'>
+				<div className='videoPlayer_child_inc_dec videoPlayer_decrement' id='videoPlayer-child-inc-dec'>
 					<Icon type='backward' onClick={this.timeDecrementHandler} style={styleIconOnScreen} />
 				</div>
-				<div className='child-inc-dec increment'>
+				<div className='videoPlayer_child_inc_dec videoPlayer_increment'>
 					<Icon type='forward' onClick={this.timeIncrementHandler} style={styleIconOnScreen} />
 				</div>
 			</div>
@@ -253,10 +250,10 @@ class VideoPlayer extends Component {
 	handleAdSkipButton = () => {
 		let { timeInsecs, skipAdAfter, skippable } = this.state;
 		return skippable ? (
-			<div className='skip'>
+			<div className='videoPlayer_skip'>
 				<div onClick={this.handleAdSkip}>
 					Skip Ad {timeInsecs < skipAdAfter ? `in ${skipAdAfter - timeInsecs}` : ''}
-					<div className='skip-forward'>
+					<div className='videoPlayer_skip_forward'>
 						{<Icon type='step-forward' style={{ ...this.iconStyle, fontSize: '18px' }} />}
 					</div>
 				</div>
@@ -274,6 +271,8 @@ class VideoPlayer extends Component {
 	renderAdIndicator = () => {
 		return this.props.adSrc ? (
 			<div
+				className='videoPlayer_renderAdIndicator'
+				id='videoPlayer-renderAdIndicator'
 				ref={(AdIndicator) => {
 					this.AdIndicator = AdIndicator;
 				}}
@@ -292,22 +291,28 @@ class VideoPlayer extends Component {
 		);
 	};
 	renderControlsVisibility = () => {
-		return 'animate ' + (this.state.isControlsVisibility ? 'visible' : 'hidden') + ' controlBar';
+		return 'videoPlayer_animate ' + (this.state.isControlsVisibility ? 'visible' : 'hidden') + ' controlBar';
 	};
 	renderControlBar = () => {
 		return (
-			<div id='playerContent' style={{ backgroundColor: this.controlBarBgColor }}>
-				<div className='buffered'>
+			<div
+				id='player-content'
+				className='videoPlayer_player_content'
+				style={{ backgroundColor: this.controlBarBgColor }}
+			>
+				<div className='videoPlayer_buffered' id='videoPlayer-buffered'>
 					<span
-						id='buffered-amount'
+						id='videoPlayer-buffered-amount'
+						className='videoPlayer_buffered_amount'
 						ref={(bufferBar) => {
 							this.bufferBar = bufferBar;
 						}}
 					/>
 				</div>
-				<div className='progress' id='progress' onClick={this.onProgressClick}>
+				<div className='videoPlayer_progress' id='videoPlayer-progress' onClick={this.onProgressClick}>
 					<span
-						id='progress-amount'
+						id='videoPlayer-progress-amount'
+						className='videoPlayer_progress_amount'
 						ref={(progressBar) => {
 							this.ProgressBar = progressBar;
 						}}
@@ -315,7 +320,8 @@ class VideoPlayer extends Component {
 					>
 						{<div />}
 						<div
-							className='progress-amount-indicator'
+							className='videoPlayer_progress_amount_indicator'
+							id='videoPlayer-progress-amount-indicator'
 							ref={(progressBarInd) => {
 								this.ProgressBarInd = progressBarInd;
 							}}
@@ -368,7 +374,8 @@ class VideoPlayer extends Component {
 					}}
 				/>
 				<div
-					id='timeDisplay'
+					id='time-display'
+					className='videoPlayer_time_display'
 					style={{
 						backgroundColor: controlBarBgColor,
 						color: iconColor
@@ -376,9 +383,8 @@ class VideoPlayer extends Component {
 				>
 					{this.state.initialTime}
 				</div>
-				<span className='right-controls'>
+				<span className='videoPlayer_right_controls' id='videoPlayer-right-controls'>
 					<ControlButton
-						id='mute'
 						clickHandler={this.audioHandler}
 						placeHolder={
 							this.state.isVolume ? (
@@ -392,7 +398,6 @@ class VideoPlayer extends Component {
 						}}
 					/>
 					<ControlButton
-						id='fullScreen'
 						clickHandler={this.screenResizeHandler}
 						placeHolder={<Icon type='fullscreen' style={iconStyle} />}
 						styleComponent={{
@@ -442,14 +447,13 @@ class VideoPlayer extends Component {
 				hls = new Hls();
 				hls.loadSource(source);
 				hls.attachMedia(this.myVideo);
-				hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {});
 				hls.on(Hls.Events.ERROR, function(event, data) {
 					if (data.details === 'bufferAppendError') {
 						hls.destroy();
 					}
 				});
 			} catch (e) {
-				console.log(e);
+				console.log(`error caught at fetchVideo function in VideoPlayer componen : ${e}`);
 			}
 		} else {
 			if (hls !== '') {
@@ -478,7 +482,6 @@ class VideoPlayer extends Component {
 			occurenceTime,
 			allOccurences
 		});
-		console.log(noOfAdVideoes, occurenceTime, allOccurences);
 	};
 	componentDidMount() {
 		if (this.props.src) {
@@ -494,7 +497,7 @@ class VideoPlayer extends Component {
 			});
 		}
 	}
-	renderClassName = () => cx([ this.props.className, 'common-video' ]);
+	renderClassName = () => cx([ this.props.className, 'videoPlayer_common_video' ]);
 	render() {
 		const {
 			iconColor,
@@ -509,6 +512,7 @@ class VideoPlayer extends Component {
 		return (
 			<div
 				id='player'
+				className='videoPlayer_player'
 				onMouseOver={this.controlVisibilityHandler.bind(this, true)}
 				onMouseOut={this.controlVisibilityHandler.bind(this, false)}
 				style={STYLE_CONFIG}
@@ -544,7 +548,8 @@ class VideoPlayer extends Component {
 					>
 						{this.renderControlBar()}
 						<div
-							id='customControls'
+							id='videoPlayer-custom-controls'
+							className='videoPlayer_custom_controls'
 							style={{
 								backgroundColor: controlBarBgColor
 							}}
@@ -568,18 +573,10 @@ VideoPlayer.defaultProps = {
 	title: '',
 	isControls: true,
 
-	onEnded: () => {
-		console.log('Video ended');
-	},
-	onPlay: () => {
-		console.log('Video is playing');
-	},
-	onPause: () => {
-		console.log('Video paused');
-	},
-	onDoubleClickCapture: () => {
-		console.log('Double click captured');
-	},
+	onEnded: () => {},
+	onPlay: () => {},
+	onPause: () => {},
+	onDoubleClickCapture: () => {},
 	configurations: {
 		width: 600,
 		left: 0,
