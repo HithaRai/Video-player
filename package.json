@@ -3,7 +3,7 @@
 	"version": "1.0.4",
 	"private": false,
 	"dependencies": {
-		"@storybook/react": "^5.2.6",
+		"@storybook/react": "^10.0.7",
 		"antd": "^3.24.2",
 		"classnames": "^2.2.6",
 		"dotenv": "^8.2.0",
@@ -12,7 +12,7 @@
 		"prop-types": "^15.7.2",
 		"react": "^16.10.2",
 		"react-dom": "^16.10.2",
-		"react-scripts": "3.2.0"
+		"react-scripts": "5.0.1"
 	},
 	"keywords": [ "react", "video-player", "hls", "hls.js" ],
 	"scripts": {
@@ -53,7 +53,7 @@
 		"@storybook/addon-actions": "^5.0.6",
 		"@storybook/addon-links": "^5.0.6",
 		"@storybook/addons": "^5.0.6",
-		"@storybook/react": "^5.0.6",
+		"@storybook/react": "^10.0.7",
 		"@storybook/storybook-deployer": "^2.8.1",
 		"babel-core": "^6.26.3",
 		"babel-loader": "^8.0.5",
